@@ -117,15 +117,16 @@ class FCA():
 		G = nx.Graph()
 		G.add_nodes_from(self.vertexlist)
 		pos = nx.spring_layout(G)
-	
 		for node in self.vertexlist:
-		
 			nx.draw_networkx_nodes(G, pos, [self.vertexlist[node]], node_color=self.scheme[self.colours[node]], node_size=400, alpha=0.8)
 		G.add_edges_from(self.edgelist)
 		nx.draw_networkx_edges(G,pos,width=1.0,alpha=0.5)
+
 		labels = {}
+		
 		for i in range(len(self.colours)):
 			labels[i] = self.colours[i]
+			
 		nx.draw_networkx_labels(G, pos, labels, font_size=12)
 		plt.axis('off')
 		plt.show()
@@ -136,25 +137,25 @@ class FCA():
 
 
 # # #firefly example
-colours = [0, 2]
-edgelist = [[0,1]]
-vertexlist = [0,1]
-kappa = 4
+# colours = [0, 2]
+# edgelist = [[0,1]]
+# vertexlist = [0,1]
+# kappa = 4
 
 
 
 # # random
-# colours = [random.randint(0,10) for i in range(20)]
+# colours = [random.randint(0,9) for i in range(10)]
 # print('colours: ', colours)
-# edgelist = [[random.randint(0, 19), random.randint(0, 19)] for i in range(40)]
-# vertexlist = list(range(0,20))
+# edgelist = [[random.randint(0, 9), random.randint(0, 9)] for i in range(20)]
+# vertexlist = list(range(0,9))
 # kappa = 15
 
 #house example
-colours = [1,2,1,3,4]
-edgelist = [[0,1], [1,2], [2,3], [3,1], [3,4], [4,0]]
-vertexlist = list(range(0,5))
-kappa = 6
+# colours = [1,2,1,3,4]
+# edgelist = [[0,1], [1,2], [2,3], [3,1], [3,4], [4,0]]
+# vertexlist = list(range(0,5))
+# kappa = 6
 
 #triangle example
 # colours = [0, 2, 5, 4]
@@ -164,10 +165,10 @@ kappa = 6
 
 
 #star example
-# colours = [0, 1, 2, 3, 4, 5, 3]
-# edgelist = [[0,5], [1,5], [2,5], [3,5], [4,5]]
-# vertexlist = [0, 1, 2, 3, 4, 5]
-# kappa = 6
+colours = [0, 1, 2, 3, 4, 5, 3]
+edgelist = [[0,5], [1,5], [2,5], [3,5], [4,5], [6,5]]
+vertexlist = [0, 1, 2, 3, 4, 5, 6]
+kappa = 6
 
 
 
