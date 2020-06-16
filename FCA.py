@@ -117,7 +117,9 @@ class FCA():
 		G = nx.Graph()
 		G.add_nodes_from(self.vertexlist)
 		pos = nx.spring_layout(G)
+	
 		for node in self.vertexlist:
+		
 			nx.draw_networkx_nodes(G, pos, [self.vertexlist[node]], node_color=self.scheme[self.colours[node]], node_size=400, alpha=0.8)
 		G.add_edges_from(self.edgelist)
 		nx.draw_networkx_edges(G,pos,width=1.0,alpha=0.5)
@@ -149,10 +151,10 @@ kappa = 4
 # kappa = 15
 
 #house example
-# colours = [1,2,1,3,4]
-# edgelist = [[0,1], [1,2], [2,3], [3,1], [3,4], [4,0]]
-# vertexlist = list(range(0,6))
-# kappa = 6
+colours = [1,2,1,3,4]
+edgelist = [[0,1], [1,2], [2,3], [3,1], [3,4], [4,0]]
+vertexlist = list(range(0,5))
+kappa = 6
 
 #triangle example
 # colours = [0, 2, 5, 4]
