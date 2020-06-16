@@ -15,6 +15,7 @@ class FCA():
 				-vertexlist: Array of verticies. However many verticies there are, is what the array should be. Ordering must be consistent with colours array
 							 Example: Index 0 of colours should align with index 0 of vertexlist, index 1 of colours with index 1 of vertexlist, etc.
 				-kappa: kappa value as chosen in the paper. Can be tuned.	"""
+	
 	def __init__(self, colours, edgelist, vertexlist, kappa):
 		self.colours = colours
 		self.edgelist = edgelist
@@ -24,6 +25,21 @@ class FCA():
 		self.blinking_colour = math.floor((self.kappa - 1) / 2)
 		#array telling which indicies of colours are to be updated when checking the update rule
 		self.updates = [0] * len(self.vertexlist)
+		self.scheme = self.colour_scheme()
+
+	def colour_scheme(self):
+		cs = {}
+		cs[0] = '#d91200'
+		cs[1] = '#d97400'
+		cs[2] = '#d9cb00'
+		cs[3] = '#94d900'
+		cs[4] = '#36d900'
+		cs[5] = '#00bcd9'
+		cs[6] = '#0050d9'
+		cs[7] = '#4c00d9'
+		cs[8] = '#9100d9'
+		cs[9] = '#d900a3'
+		return cs
 
 	def add_edges(self):
 		return self.net.add_edges(self.edgelist)
@@ -90,32 +106,47 @@ class FCA():
 			#checking to see if all colours of the graph are the same.
 			synch = all(elem == colours[0] for elem in colours)
 			if synch:
+				self.grapher()
 				break
 			else:
 				print(str(count) + ': '+ 'Not synchronized yet! Restarting.')
 				count += 1
-
+			self.grapher()
+	
+	def grapher(self):
+		G = nx.Graph()
+		G.add_nodes_from(self.vertexlist)
+		pos = nx.spring_layout(G)
+		for node in self.vertexlist:
+			nx.draw_networkx_nodes(G, pos, [self.vertexlist[node]], node_color=self.scheme[self.colours[node]], node_size=400, alpha=0.8)
+		G.add_edges_from(self.edgelist)
+		nx.draw_networkx_edges(G,pos,width=1.0,alpha=0.5)
+		labels = {}
+		for i in range(len(self.colours)):
+			labels[i] = self.colours[i]
+		nx.draw_networkx_labels(G, pos, labels, font_size=12)
+		plt.axis('off')
+		plt.show()
+		
 
 
 """Various examples as given in the paper where the update rule is mentioned"""
 
 
 # # #firefly example
-# colours = [0, 2]
-# edgelist = [[0,1]]
-# vertexlist = [0,1]
-# kappa = 4
+colours = [0, 2]
+edgelist = [[0,1]]
+vertexlist = [0,1]
+kappa = 4
 
 
 
 # # random
 # colours = [random.randint(0,10) for i in range(20)]
-# edgelist = [[random.randint(0, 19), random.randint(0, 19)] for i in range(30)]
+# print('colours: ', colours)
+# edgelist = [[random.randint(0, 19), random.randint(0, 19)] for i in range(40)]
 # vertexlist = list(range(0,20))
-# kappa = 12
-# print('colours', colours)
-# print('edgelist', edgelist)
-# print('vertexlist', vertexlist)
+# kappa = 15
 
 #house example
 # colours = [1,2,1,3,4]
@@ -145,16 +176,19 @@ class FCA():
 # kappa = 4
 
 #Use of networkX to visualize the graph
-G = nx.Graph()
-G.add_edges_from(edgelist)
-nx.draw_networkx(G, with_label = True)
-plt.savefig('4lattice.png')
 
 
 #main part that runs the FCA
 graph = FCA(colours, edgelist, vertexlist, kappa)
+graph.grapher()
 graph.add_edges()
 graph.check()
+
+
+#for random
+
+# print('edgelist: ', edgelist)
+# print('vertexlist: ', vertexlist)
 
 
 #if we make it here, then we have synched and it tells what colour is the final colour
