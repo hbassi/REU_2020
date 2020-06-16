@@ -166,18 +166,18 @@ class FCA():
 
 
 #star example
-# colours = [0, 1, 2, 3, 4, 5, 3]
-# edgelist = [[0,5], [1,5], [2,5], [3,5], [4,5], [6,5]]
-# vertexlist = [0, 1, 2, 3, 4, 5, 6]
-# kappa = 6
+colours = [0, 1, 2, 3, 4, 5, 3]
+edgelist = [[0,6], [1,6], [2,6], [3,6], [4,6], [5,6]]
+vertexlist = [0, 1, 2, 3, 4, 5, 6]
+kappa = 6
 
 
 
 #square lattice
-colours = [2,2,1,2]
-edgelist = [[0,1], [1,2], [2,3], [3, 0]]
-vertexlist = [0,1,2,3]
-kappa = 4
+# colours = [2,2,1,2]
+# edgelist = [[0,1], [1,2], [2,3], [3, 0]]
+# vertexlist = [0,1,2,3]
+# kappa = 4
 
 #Use of networkX to visualize the graph
 
