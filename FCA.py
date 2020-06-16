@@ -106,14 +106,14 @@ class FCA():
 			#checking to see if all colours of the graph are the same.
 			synch = all(elem == colours[0] for elem in colours)
 			if synch:
-				self.grapher()
+				self.grapher('Final State: Synchronized')
 				break
 			else:
 				print(str(count) + ': '+ 'Not synchronized yet! Restarting.')
 				count += 1
-			self.grapher()
+			self.grapher('Transition ' + str(count - 1))
 	
-	def grapher(self):
+	def grapher(self, name):
 		G = nx.Graph()
 		G.add_nodes_from(self.vertexlist)
 		pos = nx.spring_layout(G)
@@ -129,6 +129,7 @@ class FCA():
 			
 		nx.draw_networkx_labels(G, pos, labels, font_size=12)
 		plt.axis('off')
+		plt.title(name)
 		plt.show()
 		
 
@@ -137,10 +138,10 @@ class FCA():
 
 
 # # #firefly example
-colours = [1, 3]
-edgelist = [[0,1]]
-vertexlist = [0,1]
-kappa = 6
+# colours = [1, 3]
+# edgelist = [[0,1]]
+# vertexlist = [0,1]
+# kappa = 6
 
 
 
@@ -173,17 +174,17 @@ kappa = 6
 
 
 #square lattice
-# colours = [4,4,1,2]
-# edgelist = [[0,1], [1,2], [2,3], [3, 0]]
-# vertexlist = [0,1,2,3]
-# kappa = 4
+colours = [2,2,1,2]
+edgelist = [[0,1], [1,2], [2,3], [3, 0]]
+vertexlist = [0,1,2,3]
+kappa = 4
 
 #Use of networkX to visualize the graph
 
 
 #main part that runs the FCA
 graph = FCA(colours, edgelist, vertexlist, kappa)
-graph.grapher()
+graph.grapher('Intial Configuration')
 graph.add_edges()
 graph.check()
 
