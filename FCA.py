@@ -100,7 +100,7 @@ class FCA():
 			for update in self.updates:
 				if update:
 					self.colours[index] += 1
-					self.colours[index] %= (self.kappa + 1)
+					self.colours[index] %= (self.kappa)
 				index += 1
 			
 			#checking to see if all colours of the graph are the same.
@@ -137,10 +137,10 @@ class FCA():
 
 
 # # #firefly example
-# colours = [0, 2]
-# edgelist = [[0,1]]
-# vertexlist = [0,1]
-# kappa = 4
+colours = [1, 3]
+edgelist = [[0,1]]
+vertexlist = [0,1]
+kappa = 6
 
 
 
@@ -149,7 +149,7 @@ class FCA():
 # print('colours: ', colours)
 # edgelist = [[random.randint(0, 9), random.randint(0, 9)] for i in range(20)]
 # vertexlist = list(range(0,9))
-# kappa = 15
+# kappa = 6
 
 #house example
 # colours = [1,2,1,3,4]
@@ -165,10 +165,10 @@ class FCA():
 
 
 #star example
-colours = [0, 1, 2, 3, 4, 5, 3]
-edgelist = [[0,5], [1,5], [2,5], [3,5], [4,5], [6,5]]
-vertexlist = [0, 1, 2, 3, 4, 5, 6]
-kappa = 6
+# colours = [0, 1, 2, 3, 4, 5, 3]
+# edgelist = [[0,5], [1,5], [2,5], [3,5], [4,5], [6,5]]
+# vertexlist = [0, 1, 2, 3, 4, 5, 6]
+# kappa = 6
 
 
 
