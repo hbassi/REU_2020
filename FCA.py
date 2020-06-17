@@ -113,7 +113,7 @@ class FCA():
 			else:
 				print(str(count) + ': '+ 'Not synchronized yet! Restarting.')
 				count += 1
-			self.grapher('Transition ' + str(count - 1))
+			#self.grapher('Transition ' + str(count - 1))
 	
 	def grapher(self, name, init=False):
 		G = nx.Graph()
@@ -154,14 +154,16 @@ class FCA():
 		visited = [False] * len(self.vertexlist)
 		return self.helper(v, visited) 
 	
+	#check to see if randomly generated graph is connected
 	def fully_connected(self):
 		connected = all(elem == True for elem in self.dfs(self.vertexlist[0]))
 		if connected:
 			print('Graph is connected!')
 		else:
 			print('Missing an edge somewhere :(')
+		return connected
 
-#check to see if randomly generated graph is connected
+
 
 
 
@@ -180,17 +182,17 @@ class FCA():
 
 
 # # random
-# colours = [random.randint(0,9) for i in range(15)]
-# print('colours: ', colours)
-# edgelist = [[random.randint(0, 14), random.randint(0, 14)] for i in range(50)]
-# vertexlist = list(range(0,15))
-# kappa = 13
+colours = [random.randint(0,9) for i in range(30)]
+print('colours: ', colours)
+edgelist = [[random.randint(0, 29), random.randint(0, 29)] for i in range(60)]
+vertexlist = list(range(0,30))
+kappa = 15
 
 #house example
-colours = [1,2,1,3,4]
-edgelist = [[0,1], [1,2], [2,3], [3,1], [3,4], [4,0]]
-vertexlist = list(range(0,5))
-kappa = 6
+# colours = [1,2,1,3,4]
+# edgelist = [[0,1], [1,2], [2,3], [3,1], [3,4], [4,0]]
+# vertexlist = list(range(0,5))
+# kappa = 6
 
 #triangle example
 # colours = [0, 2, 5, 4]
@@ -220,9 +222,11 @@ kappa = 6
 graph = FCA(colours, edgelist, vertexlist, kappa)
 graph.grapher('Intial Configuration', init=True)
 graph.add_edges()
-graph.check()
-print('===============')
-graph.fully_connected()
+c_check = graph.fully_connected()
+if c_check:
+	graph.check()
+	print('===============')
+
 
 
 #for random
@@ -232,5 +236,5 @@ graph.fully_connected()
 
 
 #if we make it here, then we have synched and it tells what colour is the final colour
-print('Final colours: ', graph.colours)
-print('All edges equal!')
+	print('Final colours: ', graph.colours)
+	print('All edges equal!')
