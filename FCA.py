@@ -8,13 +8,15 @@ import time
 import matplotlib.pyplot as plt 
 
 class FCA():
-	"""Firefly Cellular Automata class made following model proposed in MLOC_writeup question 2.1
+	"""
+	Firefly Cellular Automata class made following model proposed in MLOC_writeup question 2.1
 	Parameters: -colours: 0 indexed array that contains the colour of each node. Nodes are labeled numerically, starting with 0. 
 						 Any ordering for the nodes can be picked, so long as it is consistent in further parameters.
 				-edgelist: Array that contains the edges of the graph. Used to generate the graph following documentation in NNetwork package.
 				-vertexlist: Array of verticies. However many verticies there are, is what the array should be. Ordering must be consistent with colours array
 							 Example: Index 0 of colours should align with index 0 of vertexlist, index 1 of colours with index 1 of vertexlist, etc.
-				-kappa: kappa value as chosen in the paper. Can be tuned.	"""
+				-kappa: kappa value as chosen in the paper. Can be tuned.	
+	"""
 	
 	def __init__(self, colours, edgelist, vertexlist, kappa):
 		self.colours = colours
@@ -111,7 +113,7 @@ class FCA():
 			else:
 				print(str(count) + ': '+ 'Not synchronized yet! Restarting.')
 				count += 1
-			#self.grapher('Transition ' + str(count - 1))
+			self.grapher('Transition ' + str(count - 1))
 	
 	def grapher(self, name, init=False):
 		G = nx.Graph()
@@ -133,7 +135,37 @@ class FCA():
 		if init:
 			plt.savefig('reugraph.png')
 		plt.show()
-		
+	
+	#helper function for dfs to check connectedness
+	def helper(self, v, visited):
+		visited[v] = True
+		try:
+			neighbors = self.get_neighbors(v)
+		except:
+			print('No valid neighbors.')
+			return [False]
+		for n in neighbors:
+			if visited[n] == False:
+				self.helper(n, visited)
+		return visited
+	
+	#dfs for connectedness
+	def dfs(self, v):
+		visited = [False] * len(self.vertexlist)
+		return self.helper(v, visited) 
+	
+	def fully_connected(self):
+		connected = all(elem == True for elem in self.dfs(self.vertexlist[0]))
+		if connected:
+			print('Graph is connected!')
+		else:
+			print('Missing an edge somewhere :(')
+
+#check to see if randomly generated graph is connected
+
+
+
+
 
 
 """Various examples as given in the paper where the update rule is mentioned"""
@@ -148,17 +180,17 @@ class FCA():
 
 
 # # random
-colours = [random.randint(0,9) for i in range(20)]
-print('colours: ', colours)
-edgelist = [[random.randint(0, 19), random.randint(0, 19)] for i in range(60)]
-vertexlist = list(range(0,20))
-kappa = 6
+# colours = [random.randint(0,9) for i in range(15)]
+# print('colours: ', colours)
+# edgelist = [[random.randint(0, 14), random.randint(0, 14)] for i in range(50)]
+# vertexlist = list(range(0,15))
+# kappa = 13
 
 #house example
-# colours = [1,2,1,3,4]
-# edgelist = [[0,1], [1,2], [2,3], [3,1], [3,4], [4,0]]
-# vertexlist = list(range(0,5))
-# kappa = 6
+colours = [1,2,1,3,4]
+edgelist = [[0,1], [1,2], [2,3], [3,1], [3,4], [4,0]]
+vertexlist = list(range(0,5))
+kappa = 6
 
 #triangle example
 # colours = [0, 2, 5, 4]
@@ -189,6 +221,8 @@ graph = FCA(colours, edgelist, vertexlist, kappa)
 graph.grapher('Intial Configuration', init=True)
 graph.add_edges()
 graph.check()
+print('===============')
+graph.fully_connected()
 
 
 #for random
@@ -198,5 +232,5 @@ graph.check()
 
 
 #if we make it here, then we have synched and it tells what colour is the final colour
-print(graph.colours)
+print('Final colours: ', graph.colours)
 print('All edges equal!')
