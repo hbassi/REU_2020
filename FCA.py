@@ -111,9 +111,9 @@ class FCA():
 			else:
 				print(str(count) + ': '+ 'Not synchronized yet! Restarting.')
 				count += 1
-			self.grapher('Transition ' + str(count - 1))
+			#self.grapher('Transition ' + str(count - 1))
 	
-	def grapher(self, name):
+	def grapher(self, name, init=False):
 		G = nx.Graph()
 		G.add_nodes_from(self.vertexlist)
 		pos = nx.spring_layout(G)
@@ -130,6 +130,8 @@ class FCA():
 		nx.draw_networkx_labels(G, pos, labels, font_size=12)
 		plt.axis('off')
 		plt.title(name)
+		if init:
+			plt.savefig('reugraph.png')
 		plt.show()
 		
 
@@ -146,11 +148,11 @@ class FCA():
 
 
 # # random
-# colours = [random.randint(0,9) for i in range(10)]
-# print('colours: ', colours)
-# edgelist = [[random.randint(0, 9), random.randint(0, 9)] for i in range(20)]
-# vertexlist = list(range(0,9))
-# kappa = 6
+colours = [random.randint(0,9) for i in range(20)]
+print('colours: ', colours)
+edgelist = [[random.randint(0, 19), random.randint(0, 19)] for i in range(60)]
+vertexlist = list(range(0,20))
+kappa = 6
 
 #house example
 # colours = [1,2,1,3,4]
@@ -166,10 +168,10 @@ class FCA():
 
 
 #star example
-colours = [0, 1, 2, 3, 4, 5, 3]
-edgelist = [[0,6], [1,6], [2,6], [3,6], [4,6], [5,6]]
-vertexlist = [0, 1, 2, 3, 4, 5, 6]
-kappa = 6
+# colours = [0, 1, 2, 3, 4, 5, 3]
+# edgelist = [[0,6], [1,6], [2,6], [3,6], [4,6], [5,6]]
+# vertexlist = [0, 1, 2, 3, 4, 5, 6]
+# kappa = 6
 
 
 
@@ -184,7 +186,7 @@ kappa = 6
 
 #main part that runs the FCA
 graph = FCA(colours, edgelist, vertexlist, kappa)
-graph.grapher('Intial Configuration')
+graph.grapher('Intial Configuration', init=True)
 graph.add_edges()
 graph.check()
 
