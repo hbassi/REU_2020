@@ -172,6 +172,37 @@ class FCA():
 
 """Various examples as given in the paper where the update rule is mentioned"""
 
+#bigger square lattice
+# mapper = {}
+# lattice = nx.generators.lattice.grid_graph(dim=[11, 4])
+
+# i = 0
+# for key in lattice.nodes:
+# 	mapper[key] = i
+# 	i += 1 
+
+# nx.draw_networkx_labels(lattice, nx.spring_layout(lattice), mapper, font_size=12)
+# nx.draw_networkx(lattice)
+# plt.show()
+
+
+# colours = [random.randint(0,5) for i in range(len(lattice.nodes))]
+
+# vertexlist = list(range(0, len(list(lattice.nodes))))
+
+# pre_edge = [e for e in lattice.edges]
+# edgelist = []
+# for j in range(0, len(pre_edge)):
+# 	edgelist.append([mapper[pre_edge[j][0]], mapper[pre_edge[j][1]]])
+
+
+# kappa = 4
+
+
+
+
+
+
 
 # # #firefly example
 # colours = [1, 3]
@@ -182,11 +213,11 @@ class FCA():
 
 
 # # random
-colours = [random.randint(0,9) for i in range(30)]
-print('colours: ', colours)
-edgelist = [[random.randint(0, 29), random.randint(0, 29)] for i in range(60)]
-vertexlist = list(range(0,30))
-kappa = 15
+# colours = [random.randint(0,9) for i in range(30)]
+# print('colours: ', colours)
+# edgelist = [[random.randint(0, 29), random.randint(0, 29)] for i in range(80)]
+# vertexlist = list(range(0,30))
+# kappa = 15
 
 #house example
 # colours = [1,2,1,3,4]
@@ -210,12 +241,11 @@ kappa = 15
 
 
 #square lattice
-# colours = [2,2,1,2]
+# colours = [3,0,2,3]
 # edgelist = [[0,1], [1,2], [2,3], [3, 0]]
 # vertexlist = [0,1,2,3]
 # kappa = 4
 
-#Use of networkX to visualize the graph
 
 
 #main part that runs the FCA
@@ -226,15 +256,6 @@ c_check = graph.fully_connected()
 if c_check:
 	graph.check()
 	print('===============')
-
-
-
-#for random
-
-# print('edgelist: ', edgelist)
-# print('vertexlist: ', vertexlist)
-
-
-#if we make it here, then we have synched and it tells what colour is the final colour
+	#if we make it here, then we have synched and it tells what colour is the final colour
 	print('Final colours: ', graph.colours)
 	print('All edges equal!')
